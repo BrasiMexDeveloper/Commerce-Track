@@ -1,0 +1,23 @@
+@model MyViewModel
+
+<div>
+    <h1>Custumers</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Customer Name</th>
+            <th>Created On</th>
+            <th>Actions</th>
+        </tr>
+        @foreach(Customer c in Model.AllCustomers)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.CreatedAt.ToString("MMMM dd, yyyy")</td>
+                <td><form asp-action="DestroyCustomer" method="post" asp-route-custId="@c.CustomerId">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                </form></td>
+            </tr>
+        }
+    </table>
+    @await Html.PartialAsync("_CustomerForm", Model.Customer)
+</div>

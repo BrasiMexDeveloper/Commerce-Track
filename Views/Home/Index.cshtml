@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model MyViewModel
+<h3 class="text-center">All Products</h3>
+<div class="d-flex flex-wrap">
+    @foreach(Product p in Model.AllProducts)
+    {
+        <div class="card w-25 m-2 p-3 text-center">
+            <img src="@p.Image" alt="@p.Name">
+            <h5>@p.Name</h5>
+            <h5>@p.Quantity left</h5>
+        </div>
+    }
+</div>
+
+<table class="table table-striped ">
+    <tr>
+        <th>Product</th>
+        <th>Orders</th>
+        <th>Customers</th>
+    </tr>
+    <tr>
+        <td>
+            <a href="/products"> See more products</a>
+        </td>
+        <td>
+            <a href="/orders"> See all orders</a>
+        </td>
+        <td>
+            <a href="/customers">See all customers</a>
+        </td>
+</table>
+    <table class="table table-striped">
+        <tr>
+            <th>Recent Orders</th>
+            <th>New Customers</th>
+        </tr>
+        <tr>
+            <td>
+                @foreach(Order o in Model.AllOrders)
+                {
+                    <h5><strong>@o.Customer.Name</strong>  purchased
+                        @o.QuantityBought @o.Product.Name 
+                        @(o.CreatedAt.Month - DateTime.Now.Month) Month(s), 
+                        @(o.CreatedAt.Day - DateTime.Now.Day) day(s) Ago</h5>
+                }
+            </td>
+            <td>
+                @foreach(Customer c in Model.AllCustomers)
+                {
+                    <h5><strong>@c.Name</strong>  joined the store 
+                        @(c.CreatedAt.Month - DateTime.Now.Month) Month(s), 
+                        @(c.CreatedAt.Day - DateTime.Now.Day) day(s) Ago</h5>
+                }
+            </td>
+    </table>
+
